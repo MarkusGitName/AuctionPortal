@@ -1,0 +1,93 @@
+﻿@using Microsoft.AspNet.Identity
+@using AuctionPortal.Controllers
+@using System.Data
+@{
+    ViewBag.Title = "Administration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>User Admin</h2>
+
+
+@if (DataController.getUserRole(User.Identity.GetUserId()) == "01")
+{
+    <div>Users.</div>
+    @Html.ActionLink("Give User Access", "Edit");
+    @Html.ActionLink("Create User", "Create");
+
+
+    DataTable Users = new DataTable();
+    Users = DataController.getUsersDisply();
+
+    int count = 1;
+    string id = "";
+    <div>
+
+
+        <table border="1" title="Properties">
+            <thead>
+                <tr>
+                    <th>
+                        count
+                    </th>
+                    @foreach (System.Data.DataColumn col in Users.Columns)
+                    {
+                        <th>@col.Caption</th>
+                    }
+                    <th>
+                        Remove User
+                    </th>
+                    <th>
+                        Grant Acces
+                    </th>
+                    <th>
+                        Revoke Acces
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow row in Users.Rows)
+                {
+
+                    id = Convert.ToString(row.ItemArray[0]);
+                    <tr>
+                        <td>
+                            @count
+                        </td>
+                        @foreach (var cell in row.ItemArray)
+                        {
+                            if (cell != null)
+                            {
+                                <td>
+                                    @cell.ToString()
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                        }
+                        <td>
+                            @Html.ActionLink("Remove user", "Delete/" + id + "", "UserRoles");
+                        </td>
+                        <td>
+                            @Html.ActionLink("Grant Admin Access", "Edit/" + id + "", "UserRoles");
+                        </td>
+                        <td>
+                            @Html.ActionLink("Revoke Admin Access", "Delete/" + id + "", "UserRoles");
+                        </td>
+                    </tr>
+                    count++;
+
+
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+    @Html.ActionLink("Back to Admin", "Index","Admin");
+}
+

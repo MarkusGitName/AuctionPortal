@@ -1,0 +1,133 @@
+﻿@using Microsoft.AspNet.Identity
+@using AuctionPortal.Controllers
+@using AuctionPortal.Models
+@using System.Data
+
+
+@{
+    ViewBag.Title = "Administration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Property Admin</h2>
+
+
+
+@if (DataController.getUserRole(User.Identity.GetUserId()) == "01")
+{
+    <div>Options.</div>
+    @Html.ActionLink("Add new Property", "Create", "Property");
+
+
+    <div>
+
+        <table title="Properties"></table>
+
+        @if (true)
+        {
+            int count = 1;
+            double id = 0;
+
+            DataTable Properties = new DataTable();
+            Properties = DataController.getProperty();
+
+            <table border="1" title="Properties">
+                <thead>
+                    <tr>
+                        <th>
+                            count
+                        </th>
+                        @foreach (System.Data.DataColumn col in Properties.Columns)
+                        {
+                            <th>@col.Caption</th>
+                        }
+                        <th>
+                            Add Photos
+                        </th>
+                        <th>
+                            Add Sponser
+                        </th>
+                        <th>
+                            Edit Button
+                        </th>
+                        <th>
+                            Delete Button
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in Properties.Rows)
+                    {
+
+                        id = Convert.ToDouble(row.ItemArray[0]);
+
+                    <tr>
+                        <td>
+                            @count
+                        </td>
+                        @foreach (var cell in row.ItemArray)
+                        {
+                            if (cell != null)
+                            {
+                                <td>
+                                    @cell.ToString()
+                                </td>
+                            }
+                            else
+                            {
+
+                            }
+
+                        }
+                        <td>
+
+
+                            @Html.ActionLink("Add Photos", "file/" + id + "", "PhotoViews")
+
+
+                            @if (true)
+                            {
+                                DataTable Paths = new DataTable();
+                                Paths = DataController.getPaths(id.ToString());
+                                foreach (System.Data.DataRow P in Paths.Rows)
+                                {
+                                    <div>@P.ItemArray[0].ToString()</div>
+                                }
+                            }
+
+                        </td>
+                        <td>
+
+
+                            @Html.ActionLink("Add Sponser Logo", "LogoFile/" + id + "", "PhotoViews")
+
+
+                            @if (true)
+                            {
+                                DataTable Paths = new DataTable();
+                                Paths = DataController.getLogoPaths(id.ToString());
+                                foreach (System.Data.DataRow P in Paths.Rows)
+                                {
+                                    <div>@P.ItemArray[0].ToString()</div>
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete Property", "delete/" + id + "", "Property");
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit Property", "Edit/" + id + "", "Property");
+                        </td>
+
+                    </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+
+    @Html.ActionLink("Back to List", "Index", "Admin")
+}

@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNet.Identity
+@using AuctionPortal.Controllers
+@using AuctionPortal.Models
+@using System.Data
+
+
+@{
+    ViewBag.Title = "Administration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Auction Admin</h2>
+
+
+
+@if (DataController.getUserRole(User.Identity.GetUserId()) == "01")
+{
+    <div>Options.</div>
+    @Html.ActionLink("Create new Auction", "Create", "Auction");
+
+
+    <div>
+
+        <table title="Properties"></table>
+
+        @if (true)
+        {
+            int count = 1;
+            double id = 0;
+
+            DataTable Properties = new DataTable();
+            Properties = DataController.getAuctions();
+
+            <table border="1" title="Properties">
+                <thead>
+                    <tr>
+                        <th>
+                            count
+                        </th>
+                        @foreach (System.Data.DataColumn col in Properties.Columns)
+                        {
+                            <th>@col.Caption</th>
+                        }
+
+                        <th>
+                            Edit Button
+                        </th>
+                        <th>
+                            Delete Button
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in Properties.Rows)
+                    {
+
+                        id = Convert.ToDouble(row.ItemArray[0]);
+
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            @foreach (var cell in row.ItemArray)
+                            {
+                                if (cell != null)
+                                {
+                                    <td>
+                                        @cell.ToString()
+                                    </td>
+                                }
+                                else
+                                {
+
+                                }
+
+
+
+                            }
+
+                            <td>
+                                @Html.ActionLink("Delete Auction", "delete/" + id + "", "Auction");
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit Auction", "Edit/" + id + "", "Auction");
+                            </td>
+
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+
+    @Html.ActionLink("Back to List", "Index","Admin")
+}

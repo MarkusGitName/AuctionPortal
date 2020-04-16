@@ -1,0 +1,181 @@
+﻿@using Microsoft.AspNet.Identity
+@model System.Data.DataTable[]
+@using System.Data
+@using AuctionPortal.Controllers;
+
+@{
+    ViewBag.Title = "Administration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administration</h2>
+
+@if (DataController.getUserRole(User.Identity.GetUserId()) == "01")
+{
+    <div>Options.</div>
+    @Html.ActionLink("Propperty Admin","Index","Property");
+    @Html.ActionLink("Auction Admin", "Index", "Auction");
+    @Html.ActionLink("User Admn", "Index", "UserRoles");
+
+
+    /*<div></div>
+
+    @Html.ActionLink("Add New Propperty", "AddingProperty", "Admin");
+
+    @Html.ActionLink("Remove Property", "RemoveProperty", "Admin");
+    @Html.ActionLink("Edit Property", " EditProperty", "Admin");
+
+    <div>
+        Data
+        <table title="Properties"></table>
+
+        @if (Model != null)
+        {
+
+            DataTable Properties = new DataTable();
+            Properties = DataController.getProperty();
+
+            <table border="1" title="Properties">
+                <thead>
+                    <tr>
+                        @foreach (System.Data.DataColumn col in Properties.Columns)
+                        {
+                            <th>@col.Caption</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in Properties.Rows)
+                    {
+                        <tr>
+                            @foreach (var cell in row.ItemArray)
+                            {
+                                if (cell != null)
+                                {
+                                    <td>
+                                        @cell.ToString()
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+
+
+
+                            }
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+            <div>Auction Admin.</div>
+            @Html.ActionLink("Add New Auction", "AddAuction", "Admin");
+            <div></div>
+
+            @Html.ActionLink("Remove Auction", "AddAuction", "Admin");
+            <div></div>
+
+            @Html.ActionLink("Edit Auction", "AddAuction", "Admin");
+            <div></div>
+
+
+            DataTable Auctions = new DataTable();
+            Auctions = DataController.getAuctions();
+            <div>
+
+
+                <table border="1" title="Properties">
+                    <thead>
+                        <tr>
+                            @foreach (System.Data.DataColumn col in Auctions.Columns)
+                            {
+                                <th>@col.Caption</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in Auctions.Rows)
+                        {
+                            <tr>
+                                @foreach (var cell in row.ItemArray)
+                                {
+                                    if (cell != null)
+                                    {
+                                        <td>
+                                            @cell.ToString()
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+
+
+
+                                }
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+
+            <div>Users Admin.</div>
+            <div></div>
+
+            @Html.ActionLink("Edit users or grant admin security privlage", "EditUserRole", "Admin");
+            <div></div>
+
+            @Html.ActionLink("Remove user", "AddAuction", "Admin");
+            <div></div>
+
+
+            DataTable Users = new DataTable();
+            Users = DataController.getUsers();
+            <div>
+
+
+                <table border="1" title="Properties">
+                    <thead>
+                        <tr>
+                            @foreach (System.Data.DataColumn col in Users.Columns)
+                            {
+                                <th>@col.Caption</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in Users.Rows)
+                        {
+                            <tr>
+                                @foreach (var cell in row.ItemArray)
+                                {
+                                    if (cell != null)
+                                    {
+                                        <td>
+                                            @cell.ToString()
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+
+
+
+                                }
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        }
+    </div>*/
+}

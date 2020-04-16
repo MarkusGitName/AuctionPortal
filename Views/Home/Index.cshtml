@@ -1,0 +1,138 @@
+﻿@using Microsoft.AspNet.Identity
+@model System.Data.DataTable
+@using System.Data
+@using AuctionPortal.Controllers
+@using AuctionPortal.Models
+
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@if (Request.IsAuthenticated)
+{
+
+    <div class="jumbotron">
+        <h1>Auction-Prop Portal</h1>
+        <p class="lead">Scheduled Auctions Listed Bellow.</p>
+    </div>
+
+
+    if (Model != null)
+    {
+         int count = 1;
+            int id = 25;
+        foreach (System.Data.DataRow row in Model.Rows)
+        {
+            
+            id = Convert.ToInt32(row.ItemArray[0]);
+<div class="row" style="text-align:center; padding:20px; border-bottom:ridge">
+
+    @for (int i = 0; i < 3; i++)
+    {
+        if (i == 0)
+        {
+    <div class="col-lg-2">
+        Auction ID:
+        @row[i].ToString();
+    </div>
+
+        }
+        else if (i == 1)
+        {
+            <div class="col-lg-4" style="text-align:left">
+                Property On Auction:
+                <div>Address: @DataController.getPropertyAt(@row[i].ToString()).Address</div>
+                <div>
+                    Opening bid:
+                    @DataController.getPropertyAt(@row[i].ToString()).OpeningBid
+                </div>
+                <div style="max-width:400px">
+                    Description:
+                    @DataController.getPropertyAt(@row[i].ToString()).Description
+                </div>
+                <div style="max-width:400px"> @DataController.getPropertyAt(@row[i].ToString()).Documents</div>
+                <div style="max-width:400px">@DataController.getPropertyAt(@row[i].ToString()).Location</div>
+
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-3">
+                <div>
+                    Strart Time:
+                    @row[i].ToString()
+                </div>
+                <div>
+                    End Time:
+                    @row[i + 1].ToString()
+                </div>
+
+
+            </div>
+
+            if (DateTime.Compare(DateTime.Now, Convert.ToDateTime(row[i].ToString())) >= 0 && DateTime.Compare(DateTime.Now, Convert.ToDateTime(row[i + 1].ToString())) <= 0)
+            {
+                <div class="col-lg-1">
+
+                    Auction is Active
+
+                </div>
+            }
+            else if (DateTime.Compare(DateTime.Now, Convert.ToDateTime(row[i].ToString())) < 0)
+            {
+                <div class="col-lg-1">
+
+                    Auction have not started
+
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-1">
+
+                    Auction is over
+
+                </div>
+            }
+<div class="col-lg-1">
+    <button>
+        View Auction.
+        @Html.ActionLink("Go to Auction", "AuctionLive/"+ id+"", "AuctionHub");
+
+    </button>
+    @Html.ActionLink("Go to Auction", "AuctionLive/" + id + "", "AuctionHub");
+
+
+</div>
+        }
+        
+                        count++;
+
+
+    }
+</div>
+        }
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+else
+{
+    <div class="jumbotron">
+        <h1>Auction-Prop Portal</h1>
+        <p class="lead">Please Log in or Sign up to use the portal.</p>
+    </div>
+    }

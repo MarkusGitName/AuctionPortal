@@ -1,0 +1,113 @@
+﻿@model AuctionPortal.Models.AuctionModels
+@using Microsoft.AspNet.Identity
+@using AuctionPortal.Controllers
+@using System.Data
+
+@using (Html.BeginForm())
+{
+
+    if (DataController.getUserRole(User.Identity.GetUserId()) == "01")
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Create New Auction.</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PropertyId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PropertyId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PropertyId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.StartTime, new { type = "datetime-local" })
+                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EndTime, new { type = "datetime-local" })
+                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+}
+@if (true)
+{
+    int count = 1;
+    double id = 0;
+
+    DataTable Properties = new DataTable();
+    Properties = DataController.getProperty();
+
+    <table border="1" title="Properties">
+        <thead>
+            <tr>
+                <th>
+                    count
+                </th>
+                @foreach (System.Data.DataColumn col in Properties.Columns)
+                {
+                    <th>@col.Caption</th>
+                }
+               
+                <th>
+                    Add this property to the auction
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (System.Data.DataRow row in Properties.Rows)
+            {
+
+                id = Convert.ToDouble(row.ItemArray[0]);
+
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    @foreach (var cell in row.ItemArray)
+                    {
+                        if (cell != null)
+                        {
+                            <td>
+                                @cell.ToString()
+                            </td>
+                        }
+                        else
+                        {
+
+                        }
+
+
+
+                    }
+                    
+                <td>
+                    @Html.ActionLink("Select Property to Auction", "CreateFromProperty/" + id + "", "Auction");
+                </td>
+
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index","Admin")
+</div>

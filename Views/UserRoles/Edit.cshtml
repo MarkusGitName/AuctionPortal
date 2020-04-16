@@ -1,0 +1,61 @@
+﻿@model AuctionPortal.Models.addUserRoleDisply
+@using Microsoft.AspNet.Identity
+@using AuctionPortal.Controllers
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (DataController.getUserRole(User.Identity.GetUserId()) == "01")
+    {
+
+    <div class="form-horizontal">
+        <h4>addUserRole</h4>
+        <hr />
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.userId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.userId)
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Selnumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Selnumber)
+            </dd>
+        </dl>
+
+          
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Grant Admin Permission" class="btn btn-default" />
+                </div>
+            </div>
+    </div>
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
