@@ -94,16 +94,23 @@
                 <input type="button" id="100KIncreas" value="R100 000" style="float:right " />
 
             </div>
-            <div style="padding-top:30px">
+            @if (DataController.getDeposit(User.Identity.GetUserName()).Rows.Count > 0)
+            {
+                <div style="padding-top:30px">
 
-                <input type="button" id="placeBid" value="Plase youre bid" style="border-color:red" />
+                    <input type="button" id="placeBid" value="Plase youre bid" style="border-color:red" />
 
+                </div>
+                <div style="padding-top: 30px">
+                    <input type="button" id="PlaceMaximumBid" value="Place Maximum Bid " />
+                </div>
+            }
+            else
+            {
+                <input type="button" id="PayDeposit" value=" Deposit of R5 150 is Required to bid during this auction." style="padding:20px" />
+                @Html.ActionLink("Pay deposit", "DepositView");
+            }
 
-
-            </div>
-            <div style="padding-top: 30px">
-                <input type="button" id="PlaceMaximumBid" value="Place Maximum Bid " />
-            </div>
         </div>
 
         <div style="padding-bottom:40px">
@@ -161,7 +168,7 @@ else if (Model.Auction.StartTime > DateTime.Now && DateTime.Now < Model.Auction.
          </div>
 
      </div>
-     <div  style="padding:10px ; text-align:center; margin:auto">
+     <div style="padding:10px ; text-align:center; margin:auto">
          On Auction By
          <div style="padding:20px; width:20% ; text-align:center; margin:auto">
              @if (true)
@@ -188,10 +195,20 @@ else if (Model.Auction.StartTime > DateTime.Now && DateTime.Now < Model.Auction.
          <div>Opening Bid.</div>
          <div id="cur" style="padding:10px">R @Html.DisplayFor(model => model.property.OpeningBid)</div>
      </div>
-     <button style="padding:20px">
-         Bidders deposit
-         R5 150
-     </button>
+     @if (DataController.getDeposit(User.Identity.GetUserName()).Rows.Count > 0)
+     {
+         <button style="padding:20px">
+             Deposit Paid.
+         </button>
+
+     }
+     else
+     {
+         <input type="button" id="PayDeposit" value=" Deposit of R5 150 is Required to bid during this auction." style="padding:10px" />
+
+
+     }
+     @Html.ActionLink("Pay deposit", "DepositView");
      <div style="padding:20px">
          Auction Start on:
          <div id="StartTime">@Html.DisplayFor(model => model.Auction.StartTime)</div>
@@ -213,6 +230,7 @@ else
 
         </p>
     </div>
+    
 }
 <div id="right" style="width: 50%; float:right; height:auto; background-color:royalblue">
     
@@ -318,12 +336,9 @@ else
                     $('#Bid').val('').focus();
                 });
                  $('#placeBid').click(function () {
-                    // Call the Send method on the hub.
-                    auction.server.bid2($('#displayname').val(), $('#Biddd').text());
+                     // Call the Send method on the hub.
+                     auction.server.bid2($('#displayname').val(), $('#Biddd').text(),'@Model.Auction.AuctionId','@User.Identity.GetUserName()');
                     // Clear text box and reset focus for next comment.
-
-
-
                  });
                  var $bid = $('#Biddd');
                 $('#Increment5k').click(function () {
@@ -351,6 +366,7 @@ else
                     value = value + 100000;
                     $('#Biddd').text(value );
                 });
+
 
 
 
@@ -397,6 +413,10 @@ else
 
                 document.getElementById("CountDown").innerHTML = "EXPIRED";
                 location.reload();
+            }
+            if ($('#CountDown').text() == "EXPIRED")
+            {
+              
             }
 
 

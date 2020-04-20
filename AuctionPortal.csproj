@@ -212,6 +212,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AuctionModels.cs" />
     <Compile Include="Models\AuctionViewModel.cs" />
+    <Compile Include="Models\DepositModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PhotoModel.cs" />
@@ -399,13 +400,11 @@
     <Content Include="Views\Property\createP.cshtml" />
     <Content Include="Views\PhotoViews\file.cshtml" />
     <Content Include="Views\PhotoViews\LogoFile.cshtml" />
+    <Content Include="Views\AuctionHub\DepositView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Logos\" />
-    <Folder Include="Views\AddPhotoView\" />
-    <Folder Include="Views\Default\" />
-    <Folder Include="Views\user\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

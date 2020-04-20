@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using AuctionPortal.Controllers;
 
 
 namespace AuctionPortal.Hubs
@@ -19,7 +20,7 @@ namespace AuctionPortal.Hubs
         public static double hiegestBidd = 0;
         public static string Name = "";
         
-        public void Bid2(string name, double bid)
+        public void Bid2(string name, double bid, int auctionID, string userID)
         {
             // Call the broadcastMessage method to update clients.
             if(bid> hiegestBidd)
@@ -27,6 +28,7 @@ namespace AuctionPortal.Hubs
                 hiegestBidd = bid;
                 Name = name;
                 Clients.All.broadcastMessage(name, bid);
+                DataController.PlaceBid(auctionID,userID,bid);
             }
             else
             {
@@ -47,5 +49,8 @@ namespace AuctionPortal.Hubs
             current += bid;
             Clients.All.broadcastMessage(name, current);
         }
+
+       
+
     }
 }

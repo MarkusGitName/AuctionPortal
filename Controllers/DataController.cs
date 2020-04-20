@@ -66,7 +66,7 @@ namespace AuctionPortal.Controllers
             {
                 SqlDataAdapter adpProperties = new SqlDataAdapter("SELECT * from Property", con);
                 adpProperties.Fill(PropertyTable);
-               
+
             }
             catch (DataException e)
             {
@@ -86,9 +86,9 @@ namespace AuctionPortal.Controllers
 
             try
             {
-                SqlDataAdapter adpProperties = new SqlDataAdapter("SELECT * from Property Where PropertyID = '"+id+"'", con);
+                SqlDataAdapter adpProperties = new SqlDataAdapter("SELECT * from Property Where PropertyID = '" + id + "'", con);
                 adpProperties.Fill(PropertyTable);
-               
+
             }
             catch (DataException e)
             {
@@ -98,8 +98,8 @@ namespace AuctionPortal.Controllers
             {
                 model.Address = row.ItemArray[1].ToString();
                 model.OpeningBid = Convert.ToDouble(row.ItemArray[2]);
-                model.Description = row.ItemArray[3].ToString() ;
-                model.Documents = row.ItemArray[4].ToString() ;
+                model.Description = row.ItemArray[3].ToString();
+                model.Documents = row.ItemArray[4].ToString();
                 model.Location = row.ItemArray[5].ToString();
 
             }
@@ -112,9 +112,9 @@ namespace AuctionPortal.Controllers
             string path = ConfigurationManager.ConnectionStrings[db].ConnectionString;
             con.ConnectionString = path;
 
-               try
+            try
             {
-                SqlCommand Cmd = new SqlCommand("Insert Into Property (Address, OpeningBid, Description, Documents, Location) Values('" + address + "','" + OpeningBid + "','"+description+"','" + Documents + "','" + Location + "')", con);
+                SqlCommand Cmd = new SqlCommand("Insert Into Property (Address, OpeningBid, Description, Documents, Location) Values('" + address + "','" + OpeningBid + "','" + description + "','" + Documents + "','" + Location + "')", con);
 
                 con.Open();
                 int RowsAffected = Cmd.ExecuteNonQuery();
@@ -124,9 +124,9 @@ namespace AuctionPortal.Controllers
             }
             catch (DataException e)
             {
-               
+
                 throw e;
-                
+
             }
         }
         public static void InsertProperty2(newAddProppertyViewModel model)
@@ -134,9 +134,9 @@ namespace AuctionPortal.Controllers
             SqlConnection con = new SqlConnection();
             string path = ConfigurationManager.ConnectionStrings[db].ConnectionString;
             con.ConnectionString = path;
-               try
+            try
             {
-                SqlCommand Cmd = new SqlCommand("Insert Into Property (Address, OpeningBid, Reserve,  Description, Documents, Location) Values('" + model.Address + "','" + model.OpeningBid + "','"+model.Reserve+"','" + model.Description + "','" + model.Documents + "','" + model.Location + "')", con);
+                SqlCommand Cmd = new SqlCommand("Insert Into Property (Address, OpeningBid, Reserve,  Description, Documents, Location) Values('" + model.Address + "','" + model.OpeningBid + "','" + model.Reserve + "','" + model.Description + "','" + model.Documents + "','" + model.Location + "')", con);
 
                 con.Open();
                 int RowsAffected = Cmd.ExecuteNonQuery();
@@ -146,9 +146,9 @@ namespace AuctionPortal.Controllers
             }
             catch (DataException e)
             {
-               
+
                 throw e;
-                
+
             }
         }
 
@@ -180,21 +180,21 @@ namespace AuctionPortal.Controllers
 
             try
             {
-                 SqlCommand Cmd = new SqlCommand("Insert Into Auctions (PropertyID, StartTime, endTime) Values(@PropertyID,@StartTime,@EndTime)", con);
+                SqlCommand Cmd = new SqlCommand("Insert Into Auctions (PropertyID, StartTime, endTime) Values(@PropertyID,@StartTime,@EndTime)", con);
 
                 //SqlCommand Cmd = new SqlCommand("Insert Into Auctions (PropertyID, StartTime, endTime) Values('"+propertyId+"',"+starttime+","+endtime+")", con);
 
 
-                  Cmd.Parameters.Add("@PropertyID", System.Data.SqlDbType.Int);
-                  Cmd.Parameters.Add("@StartTime", System.Data.SqlDbType.DateTime);
-                  Cmd.Parameters.Add("@EndTime", System.Data.SqlDbType.DateTime);
+                Cmd.Parameters.Add("@PropertyID", System.Data.SqlDbType.Int);
+                Cmd.Parameters.Add("@StartTime", System.Data.SqlDbType.DateTime);
+                Cmd.Parameters.Add("@EndTime", System.Data.SqlDbType.DateTime);
 
 
-                  Cmd.Parameters["@PropertyID"].Value = Convert.ToInt32(propertyId);
-                  Cmd.Parameters["@StartTime"].Value = Convert.ToDateTime(starttime);
-                 //Cmd.Parameters["@StartTime"].Value = DateTime.Now;
-                  Cmd.Parameters["@EndTime"].Value = Convert.ToDateTime(endtime); 
-                 // Cmd.Parameters["@EndTime"].Value = DateTime.Now; 
+                Cmd.Parameters["@PropertyID"].Value = Convert.ToInt32(propertyId);
+                Cmd.Parameters["@StartTime"].Value = Convert.ToDateTime(starttime);
+                //Cmd.Parameters["@StartTime"].Value = DateTime.Now;
+                Cmd.Parameters["@EndTime"].Value = Convert.ToDateTime(endtime);
+                // Cmd.Parameters["@EndTime"].Value = DateTime.Now; 
 
 
                 con.Open();
@@ -209,7 +209,7 @@ namespace AuctionPortal.Controllers
                 throw e;
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -233,8 +233,9 @@ namespace AuctionPortal.Controllers
                 // close connection when done
                 con.Close();
             }
-            catch (Exception e) { 
-            throw e;
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
@@ -248,7 +249,7 @@ namespace AuctionPortal.Controllers
 
             try
             {
-                SqlDataAdapter adpAuctions = new SqlDataAdapter("SELECT Roleid from AspNetUserRoles where Userid = '"+userid+"'", con);
+                SqlDataAdapter adpAuctions = new SqlDataAdapter("SELECT Roleid from AspNetUserRoles where Userid = '" + userid + "'", con);
                 adpAuctions.Fill(roleid);
 
             }
@@ -269,7 +270,7 @@ namespace AuctionPortal.Controllers
                     }
                 }
 
-               
+
             }
             return "none";
         }
@@ -295,13 +296,13 @@ namespace AuctionPortal.Controllers
 
             foreach (DataRow row in propertyId.Rows)
             {
-                model.PropertyID =Convert.ToInt32(row.ItemArray[0]);
-                model.Address =row.ItemArray[1].ToString();
-                model.OpeningBid =Convert.ToDouble( row.ItemArray[2]);
-                model.Reserve =Convert.ToDouble( row.ItemArray[3]);
-                model.Description =row.ItemArray[4].ToString();
-                model.Documents =row.ItemArray[5].ToString();
-                model.Location =row.ItemArray[6].ToString();
+                model.PropertyID = Convert.ToInt32(row.ItemArray[0]);
+                model.Address = row.ItemArray[1].ToString();
+                model.OpeningBid = Convert.ToDouble(row.ItemArray[2]);
+                model.Reserve = Convert.ToDouble(row.ItemArray[3]);
+                model.Description = row.ItemArray[4].ToString();
+                model.Documents = row.ItemArray[5].ToString();
+                model.Location = row.ItemArray[6].ToString();
 
             }
             return model;
@@ -312,10 +313,10 @@ namespace AuctionPortal.Controllers
             SqlConnection con = new SqlConnection();
             string path = ConfigurationManager.ConnectionStrings[db].ConnectionString;
             con.ConnectionString = path;
-            
+
             try
             {
-                SqlCommand Cmd = new SqlCommand("Delete FROM Property WHERE PropertyID = '"+id+"'", con);
+                SqlCommand Cmd = new SqlCommand("Delete FROM Property WHERE PropertyID = '" + id + "'", con);
 
                 con.Open();
                 int RowsAffected = Cmd.ExecuteNonQuery();
@@ -329,7 +330,7 @@ namespace AuctionPortal.Controllers
             }
         }
 
-        public static void editProperty(int id,newAddProppertyViewModel model)
+        public static void editProperty(int id, newAddProppertyViewModel model)
         {
             SqlConnection con = new SqlConnection();
             string path = ConfigurationManager.ConnectionStrings[db].ConnectionString;
@@ -337,7 +338,7 @@ namespace AuctionPortal.Controllers
 
             try
             {
-                SqlCommand Cmd = new SqlCommand("UPDATE Property SET Address = '"+model.Address+ "', OpeningBid = "+model.OpeningBid+ ", Description = '"+model.Description+ "',Reserve='"+model.Reserve+ "' ,Documents = '" + model.Documents+ "', Location = '"+model.Location+"' WHERE PropertyID = '" + id + "'", con);
+                SqlCommand Cmd = new SqlCommand("UPDATE Property SET Address = '" + model.Address + "', OpeningBid = " + model.OpeningBid + ", Description = '" + model.Description + "',Reserve='" + model.Reserve + "' ,Documents = '" + model.Documents + "', Location = '" + model.Location + "' WHERE PropertyID = '" + id + "'", con);
 
                 con.Open();
                 int RowsAffected = Cmd.ExecuteNonQuery();
@@ -396,7 +397,7 @@ namespace AuctionPortal.Controllers
                 model.PropertyId = Convert.ToInt32(row.ItemArray[1]);
                 model.StartTime = Convert.ToDateTime(row.ItemArray[2]);
                 model.EndTime = Convert.ToDateTime(row.ItemArray[3]); ;
-              
+
 
             }
             return model;
@@ -460,7 +461,7 @@ namespace AuctionPortal.Controllers
 
             try
             {
-                SqlDataAdapter adpAuctions = new SqlDataAdapter("SELECT Id, UserName, Email, PhoneNumber from AspNetUsers WHERE Id ='" + id+"'", con);
+                SqlDataAdapter adpAuctions = new SqlDataAdapter("SELECT Id, UserName, Email, PhoneNumber from AspNetUsers WHERE Id ='" + id + "'", con);
                 adpAuctions.Fill(UserTable);
             }
             catch (DataException e)
@@ -471,9 +472,9 @@ namespace AuctionPortal.Controllers
             foreach (DataRow row in UserTable.Rows)
             {
                 model.userId = row.ItemArray[0].ToString();
-                model.UserName = row.ItemArray[1].ToString(); 
-                model.Email = row.ItemArray[2].ToString(); 
-                model.Selnumber = row.ItemArray[3].ToString(); 
+                model.UserName = row.ItemArray[1].ToString();
+                model.Email = row.ItemArray[2].ToString();
+                model.Selnumber = row.ItemArray[3].ToString();
 
 
             }
@@ -521,7 +522,7 @@ namespace AuctionPortal.Controllers
                 throw e;
             }
 
-           
+
             return Paths;
         }
 
@@ -569,7 +570,7 @@ namespace AuctionPortal.Controllers
 
             }
         }
-        
+
         public static void insertLogo(string Path, int id)
         {
             SqlConnection con = new SqlConnection();
@@ -593,7 +594,76 @@ namespace AuctionPortal.Controllers
             }
         }
 
+        public static DataTable getDeposit(string id)
+        {
+            SqlConnection con = new SqlConnection();
+            string path = ConfigurationManager.ConnectionStrings[db].ConnectionString;
+            con.ConnectionString = path;
+            DataTable deposit = new DataTable();
 
+            try
+            {
+                SqlDataAdapter adpAuctions = new SqlDataAdapter("SELECT * from Deposits WHERE userID ='" + id + "'", con);
+                adpAuctions.Fill(deposit);
+            }
+            catch (DataException e)
+            {
+                throw e;
+            }
+
+
+            return deposit;
+        }
+
+
+        public static void depositRefunded(string user)
+        {
+            SqlConnection con = new SqlConnection();
+            string path = ConfigurationManager.ConnectionStrings[db].ConnectionString;
+            con.ConnectionString = path;
+
+            try
+            {
+                SqlCommand Cmd = new SqlCommand("Delete FROM Deposits WHERE userID = '" + user + "'", con);
+
+                con.Open();
+                int RowsAffected = Cmd.ExecuteNonQuery();
+
+                // close connection when done
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+
+
+        }
+
+
+        public static void PlaceBid(int AuctionID, string UserID,double bid )
+        {
+            SqlConnection con = new SqlConnection();
+            string path = ConfigurationManager.ConnectionStrings[db].ConnectionString;
+            con.ConnectionString = path;
+            try
+            {
+                SqlCommand Cmd = new SqlCommand("Insert Into Bids (AuctionID, UserID, bid ) Values('" + AuctionID + "','" + UserID + "','" + bid + "')", con);
+
+                con.Open();
+                int RowsAffected = Cmd.ExecuteNonQuery();
+
+                // close connection when done
+                con.Close();
+            }
+            catch (DataException e)
+            {
+
+                throw e;
+
+            }
+        }
 
     }
 }

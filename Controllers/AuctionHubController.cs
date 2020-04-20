@@ -43,6 +43,13 @@ namespace AuctionPortal.Controllers
                 return View();
             }
         }
-       
+
+        public ActionResult DepositView()
+        {
+        
+                return View();
+            
+        }
+
     }
 }
