@@ -251,6 +251,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="libman.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -405,6 +406,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Logos\" />
+    <Folder Include="Views\PaymentPages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -20,7 +20,7 @@
         </p>
     </div>
 
-    <div id="left" style="width: 50%; float: left; height: auto; background-color:lightgrey; text-align: center ">
+    <div id="left" style="width: 50%; float: left; height: auto; background-color:lightgrey; text-align: center">
         <div height="40px" style="background-color:coral; padding:10px">
             Auction Ends in:
             <div id="CountDown">
@@ -59,17 +59,11 @@
             <div id="Possision" style="float:left; width:90px; border:ridge; border-radius:5px; height:65px; text-align:center ; padding-bottom:20px">
                 current possision
             </div>
-            <div id="Reserve" style="        float: right;
-        width: 90px;
-        border: ridge;
-        border-radius: 5px;
-        height: 65px;
-        text-align: center;
-        padding-bottom: 20px">
+            <div id="Reserve" style="float: right;width: 90px; border: ridge;border-radius: 5px; height: 65px; text-align: center;     padding-bottom: 20px">
                 Reserve
 
             </div>
-            <div id="reserve" type="hidden">
+            <div id="reserve" type="hidden" class="hidden">
                 @Html.DisplayFor(model => model.property.Reserve)
             </div>
 
@@ -96,19 +90,26 @@
             </div>
             @if (DataController.getDeposit(User.Identity.GetUserName()).Rows.Count > 0)
             {
-                <div style="padding-top:30px">
+        <div style="padding-top:30px ;padding-bottom:20px">
+           
 
-                    <input type="button" id="placeBid" value="Plase youre bid" style="border-color:red" />
+            <input type="button" id="placeBid" value="Plase youre bid" style="border-color:red ;padding-bottom:20px" />
 
-                </div>
-                <div style="padding-top: 30px">
+        </div>
+                <div style="padding-top: 30px ;padding-bottom:20px">
                     <input type="button" id="PlaceMaximumBid" value="Place Maximum Bid " />
                 </div>
             }
             else
             {
-                <input type="button" id="PayDeposit" value=" Deposit of R5 150 is Required to bid during this auction." style="padding:20px" />
+        <div style="padding:20px ;max-width:250px; border:groove; margin:auto">
+             Deposit of R5 150 is Required to bid during this auction.
+            <div>
                 @Html.ActionLink("Pay deposit", "DepositView");
+                       
+                    </div>
+        </div>
+               
             }
 
         </div>
@@ -160,7 +161,7 @@ else if (Model.Auction.StartTime > DateTime.Now && DateTime.Now < Model.Auction.
 
         </p>
     </div>
- <div id="left" style="width: 50%; float: left; height: auto; background-color:lightgrey; text-align: center ">
+ <div id="left" style="width: 50%; float: left; height: auto; background-color:lightgrey; text-align: center ; padding:20px">
      <div height="40px" style="background-color:coral; padding:10px">
          Auction Ends in:
          <div id="CountDown">
@@ -197,14 +198,18 @@ else if (Model.Auction.StartTime > DateTime.Now && DateTime.Now < Model.Auction.
      </div>
      @if (DataController.getDeposit(User.Identity.GetUserName()).Rows.Count > 0)
      {
-         <button style="padding:20px">
-             Deposit Paid.
-         </button>
+         <div style="padding:20px ;max-width:250px; border:groove">
+             Youre deposit is Paid.
+         </div>
 
      }
      else
      {
-         <input type="button" id="PayDeposit" value=" Deposit of R5 150 is Required to bid during this auction." style="padding:10px" />
+ <div style="padding:20px ;max-width:250px; border:groove ;margin:auto">
+     Deposit of R5 150 is Required to bid during this auction.
+     <div>@Html.ActionLink("Pay deposit", "DepositView");</div>
+    
+ </div>
 
 
      }

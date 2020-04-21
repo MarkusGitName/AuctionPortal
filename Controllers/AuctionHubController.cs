@@ -11,6 +11,7 @@ namespace AuctionPortal.Controllers
 {
     public class AuctionHubController : Controller
     {
+
       
         public ActionResult AuctionLive(int id)
         {
